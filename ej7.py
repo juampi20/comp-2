@@ -18,7 +18,7 @@ def handler(signum,frame):
 signal.signal(signal.SIGUSR1, handler)
 
 #Creando fork.
-pid=os.fork()
+pid = os.fork()
 
 if pid == 0:
     child()

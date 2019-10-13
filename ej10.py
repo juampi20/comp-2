@@ -27,6 +27,8 @@ def main():
         time.sleep(.3)
         C = os.fork()
         os.kill(C,signal.SIGUSR1)
+        os.wait()
+        os._exit(0)
 
         if C == 0:
             #Proceso C
@@ -37,7 +39,7 @@ def main():
 
             os.kill(A,signal.SIGUSR2)
             time.sleep(.3)
-            sys.exit(0)
+            os._exit(0)
 
     time.sleep(.3)
     os.kill(B,signal.SIGUSR1)
