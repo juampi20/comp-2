@@ -1,17 +1,18 @@
 import os
-import multiprocessing
-from multiprocessing import Process
-
 
 def child():
     for x in range(5):
-        print("Soy Hijo.")
+        print("Soy Hijo %d" %(os.getpid()))
+    os._exit(0)
 
+def parent():
+    childProc = os.fork()
+    if childProc == 0:
+        child()
+    else:
+        childExit = os.wait()
+        print("Mi proceso hijo %d termino." %(childExit[0]))
+        for x in range(2):
+            print("Soy Padre %d" %(os.getpid()))
 
-if __name__ == '__main__':
-    p=Process(target=child)
-    p.start()
-    for x in range(2):
-        print("Soy Padre.")
-    p.join()
-    print("Mi proceso hijo termino.")
+parent()
