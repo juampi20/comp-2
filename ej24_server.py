@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import socket, sys, time, getopt, os
 
 (opt,arg) = getopt.getopt(sys.argv[1:], 'p:f:')
@@ -28,7 +29,7 @@ serversocket.bind((host, port))
 fd = open(f,"w+")
 
 while True:
-    data,addr = serversocket.recvfrom(1024)
+    data, addr = serversocket.recvfrom(1024)
     print(addr)
     address = addr[0]
     port = addr[1]

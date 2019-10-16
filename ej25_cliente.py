@@ -18,20 +18,18 @@ for (op,ar) in opt:
     else:
         print('Opcion incorrecta!')
 
-#create dgram udp socket
-try:
-    s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-except socket.error:
-    print('Error al crear el socket')
-    sys.exit()
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 host = a
 port = p
 
+s.connect((host, port))
+
 while True:
-    msg = input('Ingrese msg: ').encode()
+    msg = input('Ingrese msg: ').encode('ascii')
     try:
-        s.sendto(msg, (host, port))
+        s.sendto(msg,(host, port))
     except socket.error:
         print('Error Code: ' + str(msg[0]) + 'Message' + msg[1])
         sys.exit()
+sys.exit()
