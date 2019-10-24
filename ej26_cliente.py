@@ -4,31 +4,29 @@ import socket, sys, os, time
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
-    print ('Failed to create socket!')
+    print ('Fallo al crear el socket!')
     sys.exit()
 
-print ('Socket Created!')
+print ('Socket Creado!')
 
 host = str(sys.argv[1])
 port = int(sys.argv[2])
 
 s.connect((host, port))
 
-print ('Socket Connected to ', host, 'in port', port)
+print ('Socket conectado al host', host, 'en el puerto', port)
 
 while True:
     msg = input('Ingrese msg: ').encode()
-    if msg == 'exit':
+    if msg.decode() == 'exit':
         sys.exit()
     else:
         try :
-        	#Set the whole string
-        	s.sendto(msg,(host, port))
+            #Set the whole string
+            s.sendto(msg,(host, port))
         except socket.error:
-        	#Send failed
-        	print ('Send failed')
-        	sys.exit()
-        print ('Message send successfully')
-        sys.exit()
+            #Send failed
+            print ('Fallo al enviar el msg!')
+            sys.exit()
 
 s.close()

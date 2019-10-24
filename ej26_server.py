@@ -5,7 +5,7 @@ import sys, socket, os
 try:
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
-    print ('Failed to create socket!')
+    print ('Fallo al crear el socket!')
     sys.exit()
 
 # get local machine name
@@ -26,7 +26,6 @@ while True:
     if not child_pid:
         while True:
             msg = clientsocket.recv(1024)
-            print("Recibido: %s" % msg.decode())
-            msg = "Ok" + "\r\n"
-            clientsocket.send(msg.encode("ascii"))
+            print("Recibido: %s" % (msg.decode()))
+            sys.exit()
         clientsocket.close()
