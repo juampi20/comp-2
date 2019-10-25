@@ -27,5 +27,6 @@ while True:
         while True:
             msg = clientsocket.recv(1024)
             print("Recibido: %s" % (msg.decode()))
-            sys.exit()
+            if not msg:
+                break
         clientsocket.close()
