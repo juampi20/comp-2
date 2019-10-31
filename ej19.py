@@ -20,7 +20,7 @@ def mostrarCola():
 q = Queue()
 
 if __name__ == '__main__':
-    p = Pool(processes=1)
+    p = Pool(processes=4)
 #    for x in range(10):
 #        p.apply(f,args=(x,))
     p.map(f,range(10))
