@@ -21,4 +21,4 @@ if os.path.isfile(file1):
         file2.write(linea)
         linea = file1.readline()
 
-#python3 ej2.py -i tmp/file1 -o tmp/file2
+# python3 ej2.py -i tmp/file1 -o tmp/file2

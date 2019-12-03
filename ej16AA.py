@@ -1,4 +1,5 @@
-import os, time
+import os
+import time
 
 nombreuser = "userAA"
 pipe_name = "chat"

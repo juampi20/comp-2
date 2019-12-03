@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-import socket, os, multiprocessing, sys
+import socket
+import os
+import multiprocessing
+import sys
+
 
 def mp_server(sock):
     print("Launching process...")
@@ -8,8 +12,7 @@ def mp_server(sock):
         print("Recibido: %s" % msg.decode())
         if not msg:
             break
-        #clientsocket.close()
-
+        # clientsocket.close()
 
 
 # create a socket object
@@ -28,7 +31,7 @@ serversocket.listen(5)
 
 while True:
     # establish a connection
-    clientsocket,addr = serversocket.accept()
+    clientsocket, addr = serversocket.accept()
 
     print("Got a connection from %s" % str(addr))
     child = multiprocessing.Process(target=mp_server, args=(clientsocket,))

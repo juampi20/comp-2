@@ -1,14 +1,18 @@
 #!/usr/bin/python3
-import socket, sys, time, getopt, os
+import socket
+import sys
+import time
+import getopt
+import os
 
-(opt,arg) = getopt.getopt(sys.argv[1:], 'p:f:')
+(opt, arg) = getopt.getopt(sys.argv[1:], 'p:f:')
 
 print('opciones: ', opt)
 
 p = ""
 f = ""
 
-for (op,ar) in opt:
+for (op, ar) in opt:
     if (op == '-p'):
         p = int(ar)
         print('Opcion -p exitosa!')
@@ -18,7 +22,7 @@ for (op,ar) in opt:
     else:
         print('Opcion incorrecta!')
 
-#create a socket object
+# create a socket object
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #host = socket.gethostname()
@@ -34,8 +38,9 @@ while True:
     conn, addr = serv.accept()
     while True:
         data = conn.recv(1024)
-        if not data: break
-        print('Address: %s - Port: %d' %(addr[0], addr[1]))
+        if not data:
+            break
+        print('Address: %s - Port: %d' % (addr[0], addr[1]))
         print('Recibido: '+data.decode('ascii'))
         fd.write('\n'+data.decode('ascii'))
         time.sleep(1)

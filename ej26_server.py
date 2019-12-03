@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-import sys, socket, os
+import sys
+import socket
+import os
 
 # create a socket object
 try:
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
-    print ('Fallo al crear el socket!')
+    print('Fallo al crear el socket!')
     sys.exit()
 
 # get local machine name

@@ -11,7 +11,7 @@ def main():
 
     if processid == 0:
         os.close(r)
-        w = os.fdopen(w,'w')
+        w = os.fdopen(w, 'w')
         print("Escribir mensaje:")
         for line in sys.stdin:
             w.write("%s" % line)
@@ -33,5 +33,6 @@ def main():
 
     os.wait()
     os.wait()
+
 
 main()

@@ -1,7 +1,8 @@
 import os
 
+
 def child(x):
-    print("Soy el proceso %d. Mi padre es %d" %(os.getpid(), x))
+    print("Soy el proceso %d. Mi padre es %d" % (os.getpid(), x))
     os._exit(0)
 
 
@@ -12,5 +13,6 @@ def parent():
         childProc = os.fork()
         if childProc == 0:
             child(pid)
+
 
 parent()

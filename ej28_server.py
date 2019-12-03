@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-import socket, os, threading, sys
+import socket
+import os
+import threading
+import sys
+
 
 def th_server(sock):
     print("Launching thread...")
@@ -9,6 +13,7 @@ def th_server(sock):
         if not msg:
             break
 #    sock.close()
+
 
 # create a socket object
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,7 +30,7 @@ serversocket.listen(5)
 
 while True:
     # establish a connection
-    clientsocket,addr = serversocket.accept()
+    clientsocket, addr = serversocket.accept()
     print("Got a connection from %s" % str(addr))
     th = threading.Thread(target=th_server, args=(clientsocket,))
     th.start()

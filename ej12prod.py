@@ -1,14 +1,16 @@
-import getopt, sys, os
+import getopt
+import sys
+import os
 
-(opt,arg) = getopt.getopt(sys.argv[1:], 'a:')
+(opt, arg) = getopt.getopt(sys.argv[1:], 'a:')
 
 arg = ""
 
-for (op,ar) in opt:
+for (op, ar) in opt:
     if(op == '-a'):
         arg = str(ar)
 
-fd = open("Fifo","w")
+fd = open("Fifo", "w")
 
 fd.write(arg)
 

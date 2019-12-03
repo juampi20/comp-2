@@ -1,7 +1,8 @@
 import getopt
 import sys
 
-(opt, arg) = getopt.getopt(sys.argv[1:], 'o:n:m:', ['opcion=', 'num1=', 'num2='])
+(opt, arg) = getopt.getopt(sys.argv[1:],
+                           'o:n:m:', ['opcion=', 'num1=', 'num2='])
 
 print('Opciones: ', opt)
 print('Argumentos ', arg)
@@ -40,4 +41,4 @@ elif operador == '/':
 else:
     print('\tError!\n')
 
-#python3 ej1.py -o '+' -n 5 -m 5
+# python3 ej1.py -o '+' -n 5 -m 5

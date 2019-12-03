@@ -1,9 +1,11 @@
 import os
 
+
 def child():
     for x in range(5):
-        print("Soy Hijo %d" %(os.getpid()))
+        print("Soy Hijo %d" % (os.getpid()))
     os._exit(0)
+
 
 def parent():
     childProc = os.fork()
@@ -11,8 +13,9 @@ def parent():
         child()
     else:
         childExit = os.wait()
-        print("Mi proceso hijo %d termino." %(childExit[0]))
+        print("Mi proceso hijo %d termino." % (childExit[0]))
         for x in range(2):
-            print("Soy Padre %d" %(os.getpid()))
+            print("Soy Padre %d" % (os.getpid()))
+
 
 parent()

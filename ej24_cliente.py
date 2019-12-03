@@ -1,26 +1,30 @@
 #!/usr/bin/python3
-import socket, getopt, time, sys, os
+import socket
+import getopt
+import time
+import sys
+import os
 
-(opt,arg) = getopt.getopt(sys.argv[1:], 'a:p:')
+(opt, arg) = getopt.getopt(sys.argv[1:], 'a:p:')
 
 print('opciones: ', opt)
 
 a = ""
 p = ""
 
-for (op,ar) in opt:
+for (op, ar) in opt:
     if (op == '-a'):
         a = ar
-        print('Opcion -p exitosa!')
+        print('Opcion -a exitosa!')
     elif (op == '-p'):
         p = int(ar)
-        print('Opcion -f exitosa!')
+        print('Opcion -p exitosa!')
     else:
         print('Opcion incorrecta!')
 
-#create dgram udp socket
+# create dgram udp socket
 try:
-    s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 except socket.error:
     print('Error al crear el socket')
     sys.exit()

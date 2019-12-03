@@ -1,11 +1,13 @@
 import os
 
+
 def msgFifo():
-    fd = open("Fifo","r")
+    fd = open("Fifo", "r")
     mensaje = fd.readline()
     mensaje = str(mensaje)
     fd.close()
     return mensaje
+
 
 def Hijo(r):
     os.close(w)
@@ -13,6 +15,7 @@ def Hijo(r):
     linea = r.readline()
     print("El mensaje recibido es: %s" % linea)
     r.close()
+
 
 r, w = os.pipe()
 
