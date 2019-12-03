@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import sys
 import getopt
+
 (opt, arg) = getopt.getopt(sys.argv[1:], 'n:m:', ["numero1", "numero2"])
 
 

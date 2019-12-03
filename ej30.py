@@ -3,6 +3,7 @@ import sys
 import getopt
 from multiprocessing import Process, Lock
 import string
+
 (opt, arg) = getopt.getopt(sys.argv[1:], 'f:r:', ["archivo", "iteraciones"])
 
 
