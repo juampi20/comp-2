@@ -1,8 +1,9 @@
-import time
 import sys
 import getopt
-from multiprocessing import Process, Lock
+import threading
 import string
+import time
+
 (opt, arg) = getopt.getopt(sys.argv[1:], 'f:r:', ["archivo", "iteraciones"])
 
 
@@ -22,7 +23,7 @@ if __name__ == "__main__":
             nombre_archivo = ar
         if (op in ['-r', 'iteraciones']):
             cant_iteraciones = int(ar)
-    lock = Lock()
+    lock = threading.Lock()
     letras = string.ascii_uppercase
     try:
         aux = open(nombre_archivo, 'r+')
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     lista = []
     for i in range(15):
         letra = letras[i]
-        lista.append(Process(target=f, args=(
+        lista.append(threading.Thread(target=f, args=(
             lock, nombre_archivo, cant_iteraciones, letra)))
         lista[i].start()
     for i in lista:
