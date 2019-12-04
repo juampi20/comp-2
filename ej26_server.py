@@ -23,11 +23,15 @@ serversocket.listen(5)
 while True:
     # establish a connection
     clientsocket, addr = serversocket.accept()
-    print('Conexion establecida: SERVER ON')
+    address = addr[0]
+    port = addr[1]
+    print('Conexion establecida')
     child_pid = os.fork()
     if not child_pid:
         while True:
             msg = clientsocket.recv(1024)
+            print('\nChild Process: %s - Address: %s - Port: %d' %
+                  (os.getpid(), address, port))
             print("Recibido: %s" % (msg.decode()))
             if not msg:
                 break

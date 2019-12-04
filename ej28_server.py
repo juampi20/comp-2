@@ -9,7 +9,7 @@ def th_server(sock):
     print("Launching thread...")
     while True:
         msg = sock.recv(1024)
-        print("Recibido: %s" % msg.decode())
+        print("Recibido: %s" % msg.decode('ascii'))
         if not msg:
             break
 #    sock.close()
@@ -20,7 +20,7 @@ serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # get local machine name
 host = ""
-port = int(sys.argv[1])
+port = 1234
 
 # bind to the port
 serversocket.bind((host, port))

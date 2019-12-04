@@ -25,7 +25,8 @@ while True:
         break
     else:
         try:
-            # Set the whole string
+            if not msg:
+                break
             s.sendto(msg, (host, port))
         except socket.error:
             # Send failed
