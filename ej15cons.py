@@ -5,7 +5,7 @@ from multiprocessing import Process, Pipe
 
 
 def main():
-    fifo_fd = open('Fifo', "r")
+    fifo_fd = open('tmp/Fifo', "r")
     line = fifo_fd.readline()
     lector_conn, escritor_conn = Pipe()
     p = Process(target=hijo, args=(lector_conn, ))

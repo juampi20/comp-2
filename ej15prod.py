@@ -10,7 +10,7 @@ for (op, ar) in opt:
     if(op == '-a'):
         arg = str(ar)
 
-fd = open("Fifo", "w")
+fd = open("tmp/Fifo", "w")
 
 fd.write(arg)
 
