@@ -17,7 +17,7 @@ for (op, ar) in opt:
         p = int(ar)
         print('Opcion -p exitosa!')
     elif (op == '-f'):
-        f = ('tmp/'+ar)
+        f = ('/tmp/'+ar)
         print('Opcion -f exitosa!')
     else:
         print('Opcion incorrecta!')

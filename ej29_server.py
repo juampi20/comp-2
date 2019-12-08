@@ -4,63 +4,70 @@ import socket
 import sys
 import threading
 import time
+import getopt
+
+(opcion, arg) = getopt.getopt(sys.argv[1:], 'p:')
+
+for (op, ar) in opcion:
+    if op == '-p':
+        p = int(ar)
+        print('Opcion -p exitosa!')
 
 
-def th_server(server):
-    print("Launching thread...")
+def th_server(sock):
+    print("Iniciando thread...\n")
     while True:
 
-        op = server.recv(1024)
-        print("Opcion: " + op.decode())
+        opcion = sock.recv(1024)
+        print('Cliente %s:%s' % (addr[0], addr[1]))
+        print("Opcion: " + opcion.decode() + '\n')
 
-        if (op.decode() == 'ABRIR'):
-            arch = '\nNombre del archivo:'
-            server.send(arch.encode())
-            data = server.recv(1024)
-            archivo = 'tmp/'+data.decode()+'.txt'
+        if (opcion.decode() == 'ABRIR'):
+            texto = '\nNombre del archivo:'
+            sock.send(texto.encode())
+            archivo = sock.recv(1024).decode()
             fd = open(archivo, 'a+')
 
-        elif (op.decode() == 'AGREGAR'):
-            title = 'Texto:'
-            server.send(title.encode())
+        elif (opcion.decode() == 'AGREGAR'):
+            fd = open(archivo, 'a+')
+            texto = '\n*** Escribir "quit" para terminar ***\nTexto:'
+            sock.send(texto.encode())
             while True:
-                message = server.recv(1024)
-                if not message:                 # ERROR ACA, NO SALE DEL LOOP
+                message = sock.recv(1024)
+                if message.decode() == 'quit':
                     break
-                print('Recibido: '+message.decode())
-                fd.write(message.decode()+'\n')
-            print('Loop ended.')
-
-        elif (op.decode() == 'LEER'):
-            for lines in fd:
-                server.send(lines.encode())
-
-        elif (op.decode() == 'CERRAR'):
+                print('Recibido: ' + message.decode())
+                fd.write(message.decode() + '\n')
+            print('Bucle terminado.')
             fd.close()
 
-        else:
-            print('Cerrando conexion...')
+        elif (opcion.decode() == 'LEER'):
+            fd = open(archivo, 'r')
+            print('\nEnviando archivo al cliente: ' + archivo + '\n')
+            contenido = fd.read()
+            sock.sendall(contenido.encode())
+            fd.close()
+
+        elif (opcion.decode() == 'CERRAR'):
+            fd.close()
             break
 
+        else:
+            print('\nOpcion invalida!\n')
 
-# create a socket object
+
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# get local machine name
 host = ""
-port = 1234
+port = p
 
-# bind to the port
 serversocket.bind((host, port))
 
-# queue up to 5 requests
 serversocket.listen(5)
 
 while True:
-    # establish a connection
     clientsocket, addr = serversocket.accept()
-    print("Got a connection from %s" % str(addr))
+    print("\nObteniendo conexion desde %s:%s\n" % (addr[0], addr[1]))
     th = threading.Thread(target=th_server, args=(clientsocket,))
     th.start()
 clientsocket.close()
-print('Client disconnect...')

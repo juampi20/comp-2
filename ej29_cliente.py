@@ -5,6 +5,15 @@ import os
 import getopt
 import time
 
+(opt, arg) = getopt.getopt(sys.argv[1:], 'a:p:')
+
+for (op, ar) in opt:
+    if op == '-a':
+        a = str(ar)
+    elif op == '-p':
+        p = int(ar)
+        print('Opcion -p exitosa!')
+
 try:
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
@@ -13,8 +22,8 @@ except socket.error:
 
 print('Socket Creado!')
 
-host = "127.0.0.1"
-port = 1234
+host = a
+port = p
 
 client.connect((host, port))
 
@@ -23,46 +32,42 @@ print('Socket conectado al host', host, 'en el puerto', port)
 while True:
 
     print("""\n
-    \t\t *** Menu ***
+    \t\t\t *** Menu ***
     - ABRIR
     - AGREGAR
     - LEER
     - CERRAR
     """)
 
-    option = input('Opcion: ')
+    opcion = input('Opcion: ').upper()
 
-    client.sendto(option.encode(), (host, port))
+    client.sendto(opcion.encode(), (host, port))
 
-    if (option == 'ABRIR'):
+    if (opcion == 'ABRIR'):
         print(client.recv(1024).decode())
-        msg = input()
-        client.sendto(msg.encode(), (host, port))
+        data = input()
+        archivo = '/tmp/' + data + '.txt'
+        client.sendto(archivo.encode(), (host, port))
 
-    elif (option == 'AGREGAR'):
-        empty = ''
+    elif (opcion == 'AGREGAR'):
         print(client.recv(1024).decode())
         while True:
             msg = input()
             client.sendto(msg.encode(), (host, port))
-            if msg == empty:
-                break
-        input('\nToque Enter para continuar...')
-
-    elif (option == 'LEER'):
-        while True:
-            data = client.recv(1024)
-            if data:
-                print(data.decode())
-            else:
+            if msg == 'quit':
                 break
 
-        input('\nToque Enter para continuar...')
+    elif (opcion == 'LEER'):
+        contenido = client.recv(1024).decode()
+        print('\nArchivo: ' + archivo + '\n')
+        print(contenido)
+        input('Apretar Enter...')
 
-    elif (option == 'CERRAR'):
-        client.close()
+    elif (opcion == 'CERRAR'):
+        break
 
     else:
-        print('Opcion incorrecta!')
+        print('\nOpcion invalida!\n')
+        input('Apretar Enter...')
 
 client.close()

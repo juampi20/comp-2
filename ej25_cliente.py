@@ -14,11 +14,11 @@ p = ""
 
 for (op, ar) in opt:
     if (op == '-a'):
-        a = ar
-        print('Opcion -p exitosa!')
+        a = str(ar)
+        print('Opcion -a exitosa!')
     elif (op == '-p'):
         p = int(ar)
-        print('Opcion -f exitosa!')
+        print('Opcion -p exitosa!')
     else:
         print('Opcion incorrecta!')
 

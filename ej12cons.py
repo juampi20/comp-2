@@ -2,7 +2,7 @@ import os
 
 
 def msgFifo():
-    fd = open("Fifo", "r")
+    fd = open("/tmp/fifo", "r")
     mensaje = fd.readline()
     mensaje = str(mensaje)
     fd.close()
