@@ -12,6 +12,7 @@ def f(lock, file_name, n, letra):
     file = open(file_name, 'a')
     for i in range(n):
         file.write(letra)
+    file.write("\n")
     time.sleep(1)
     file.close()
     lock.release()
